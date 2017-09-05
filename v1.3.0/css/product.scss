@@ -1,0 +1,337 @@
+body,
+html {
+    box-sizing: border-box;
+    font-family: "微软雅黑";
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/app_bg_01@3x.jpg);
+    background-size: 100% 100%;
+    max-width: 100%;
+}
+.openBrowser {
+    position: fixed;
+    top:0px;
+    width:100%;
+    height: auto;
+    z-index: 9999999;
+}
+.main {
+    position: absolute;
+    top: 0px;
+    bottom: 1.1rem;
+    /* 使之可以滚动 */
+    overflow-y: scroll;
+    width: 100%;
+.video {
+    width: 100%;
+    height: 4.22rem;
+    position: relative;
+    img {
+        width: 100%;
+        height: 4.22rem;
+    }
+    .box {
+        width: 100%;
+        height: 4.22rem;
+        position: absolute;
+        top:0px;
+        .play_icon {
+            display: inline-block;
+            width: 1.4rem;
+            height: 1.4rem;
+            background-image: url(../images/btn_64_play_w_nor@3x.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            position: absolute;
+            top: calc(50% - .7rem);
+            left: calc(50% - .7rem);
+            z-index: 22; 
+        }
+        
+    }
+}
+.product-acticle {
+    width: 100%;
+    background:#fff;
+    height: auto;
+    padding:.3rem .15rem;
+    text-align: center;
+    margin-bottom: .1rem;
+    h2{
+        font-size: .3rem;
+        color: #313131;
+        padding-bottom: .15rem;
+    }
+    p {
+        span {
+            font-size: .5rem;
+            font-weight: 700;
+            width: .25rem;
+            height: .25rem;
+            line-height: .25rem;
+            vertical-align: middle;
+            margin-right: .05rem;
+            text-align: -webkit-center;
+            display: inline-block;
+        } 
+        color: #959595;
+        padding-bottom: .05rem;
+        font-size: .25rem;
+        vertical-align: middle;
+        text-align: -webkit-center;
+    }
+    h3{
+        background-color: #ffe400;
+        font-size: .2rem;
+        color: #646464;
+        padding-top: .15rem;
+        padding-bottom: .15rem;
+        font-weight: normal;
+    }
+}
+.productdesc {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    margin-bottom: .1rem;
+    .title {
+        padding: .3rem 0px;
+        .text {
+            font-size: .3rem;
+            color: #646464;
+            font-weight: bold;
+            padding-left: .15rem;
+            border-left: .08rem solid #646464;
+        }
+        
+    }
+    .general {
+        width: 100%;
+        height: auto;
+        position: relative;
+        .editor {
+            width: 100%;
+            height: auto;
+//          height: 8.6rem;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .open {
+            width: 100%;
+            padding: .3rem 0px;
+            font-size: .25rem;
+            color: #8b49f6;
+            font-weight: bold;
+            text-align: center;
+            display: block;
+            box-shadow: 0 -.5rem .4rem #fff;
+            position: absolute;
+            bottom: 0px;
+            background: #fff;
+        }
+    }
+}
+.user-judge{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    margin-bottom: 1.8rem;
+    .title {
+        padding: .3rem 0px;
+        border-bottom: .01rem solid #e5e5e5;
+        .text {
+            font-size: .3rem;
+            color: #646464;
+            font-weight: bold;
+            padding-left: .15rem;
+            border-left: .08rem solid #646464;
+        }
+        
+    }
+    .list{
+       .item{
+           border-bottom: .01rem solid #e5e5e5;
+           padding: .2rem 0;
+           margin: 0 .2rem;
+            width: calc(100% -.4rem);
+            height: auto;
+            font-size: .25rem;
+            .user-photo {
+                width: .95rem;
+                height: .95rem;
+                display: inline-block;
+                vertical-align: top;
+            }
+            .right {
+                width: calc(100% - 1.6rem);
+                display: inline-block;
+                padding-left: .2rem;
+                .title2 {
+                    span {
+                        color: #313131;
+                        display: inline-block;
+                        width: 55%;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    time {
+                        font-size: .2rem;
+                        color: #959595;
+                        float: right;
+                    }
+                    &::after {
+                        clear: both;
+                        content: '';
+                    }
+                }
+                blockquote {
+                    margin: 0px;
+                    font-size: .25rem;
+                    word-wrap: break-word;
+                }
+                .pics {
+                        overflow: hidden;
+                        margin-top: .1rem;
+                        li {
+                            width: 1.5rem;
+                            height: 1.5rem;
+                            float: left;
+                            margin: 0 .2rem .2rem 0;
+                            background-color: #fff;
+                            display: -webkit-box;
+                            -webkit-box-align: center;
+                            -webkit-box-pack: center;
+                            img {
+                                width: auto;
+                                max-width: 100%;
+                                max-height: 100%;
+                                vertical-align: top;
+                            }
+                        }
+                }
+                .sku {
+                    color: #999;
+                    margin-top: .1rem;
+                    li {
+                        float: left;
+                        &::after {
+                            content: '';
+                        }
+                    }
+                    &::after {
+                            clear: both;
+                            content: '';
+                            display: block;
+                    }
+                }
+            }
+        }
+    }
+    .tip{
+        text-align: center;
+        color: #8b49f6;
+        font-weight: bold;
+        padding: .3rem 0px;
+        font-size: .25rem;
+        clear: both;
+    }
+}
+}
+footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 9999;
+    .price {
+        border-top: 0.01rem solid #cac9cb;
+        padding: .3rem 0px;
+        font-size: .34rem;
+        float: left;
+        width: 50%;
+        color: #ed5564;
+        background-color: #fff;
+        text-align: left;
+        padding-left: .2rem;
+        display: inline-block;
+        height: 1.1rem;
+        .exercise {
+            display: inline-block;
+            font-size: .25rem;
+            color: #fff;
+            background: #ed5564;
+            width: auto;
+            margin-left: .2rem;
+            padding: .05rem .1rem;
+        }
+    }
+    a {
+        padding: .33rem 0px;
+        font-size: .3rem;
+        font-weight: bold;
+        color: #fff;
+        width: 50%;
+        background-color: #8b49f6;
+        float: left;
+        display: inline-block;
+        text-align: center;
+        height: 1.1rem;
+    }
+}
+/*动画*/
+.fade-enter-active,
+.fade-leave-active {
+    transition: all .2s linear;
+    transform: translate3D(0, 0, 0);
+}
+
+.fade-enter,
+.fade-leave-active {
+    transform: translate3D(100%, 0, 0);
+}
+
+
+/* bigimg */
+
+.img-view {
+    position: fixed;
+    top:0px;
+    left:0px;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+}
+
+/*遮罩层样式*/
+.img-view .img-layer {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*不限制图片大小，实现居中*/
+.img-view .img img {
+    max-width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    z-index: 1000;
+}

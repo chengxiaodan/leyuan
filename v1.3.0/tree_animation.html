@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        *{
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #main{
+            height: 100%;
+            background: url('./images/sf_animation/bg/mainBg.png') no-repeat 0 0;
+            /*background: #959595;*/
+            background-size: 100%;
+        }
+        #intro{
+            position: absolute;
+            bottom: 44px;
+            left: 0;
+            width: 100%;
+            background-color:transparent;
+            z-index: 12345;
+            height: 143px;
+            display: none;
+            color: #fff;
+            padding: 10px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling : touch;
+        }
+        .bottom_action{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #302d32;
+            z-index: 12345;
+            display: none;
+        }
+        .inner{
+            /*padding: 10px;*/
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            height: 42px;
+            line-height: 42px;
+        }
+        .arrow_left{
+            width: 71px;
+            height: 23px;
+            position: absolute;
+            left: 0;
+            top:10px;
+            border-right: 1px solid #454246;
+        }
+        .arrow_right{
+            width: 71px;
+            height: 23px;
+            position: absolute;
+            right: 0;
+            top:10px;
+            border-left: 1px solid #454246;
+        }
+        .arrow_left img,.arrow_right img{
+            width: 12px;
+            height: 21px;
+            margin: 0 auto;
+            display: block;
+        }
+        .list{
+            position: absolute;
+            right: 15px;
+            top:30px;
+            display: table;
+            z-index: 999;
+        }
+        .list_item{
+            float: left;
+            margin-left: 12px;
+            padding: 6px;
+            border-radius: 20px;
+        }
+        .list_item .point{
+            width: 8px;
+            height: 8px;
+            margin: 0 auto 13px auto;
+            border-radius: 10px;
+        }
+        .list_item .text{
+            width: 16px;
+        }
+        .closeBtn{
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            left:18px;
+            top:30px;
+        }
+        .closeBtn img{
+            width: 100%;
+            height: 100%;
+        }
+        @media only screen
+        and (device-width: 320px) {
+            #intro{
+                bottom: 22px;
+                left: 0;
+                width: 100%;
+                background-color:transparent;
+                z-index: 12345;
+                height: 94px;
+                bottom: 26px;
+            }
+            .inner{
+                /*padding: 5px;*/
+                text-align: center;
+                color: #fff;
+                font-size: 12px;
+                height: 24px;
+                line-height: 24px;
+            }
+            .list_item .point{
+                width: 6px;
+                height: 6px;
+                margin: 0 auto 4px auto;
+                border-radius: 10px;
+            }
+            .list_item .text{
+                width: 12px;
+                font-size: 12px;
+            }
+            
+        }
+        </style>
+    </head>
+    <body>
+        <div id='main'></div>
+        <div id='intro'></div>
+        <div id='bottomAction' class="bottom_action">
+            <!--<div id='arrowLeft' class="arrow_left"><img src='./images/sf_animation/icons/btn_arrow_l_w@3x.png'/></div>-->
+            <!--<div id='arrowRight' class="arrow_right"><img src='./images/sf_animation/icons/btn_arrow_r_w@3x.png'/></div>-->
+            <div id='resetBtn' class="inner">收起</div>
+        </div>
+        <div class="list">
+        </div>
+        <div id='closeBtn' class="closeBtn">
+            <img src="./images/sf_animation/icons/close@3x.png"/>
+        </div>
+    </body>
+</html>
+<script src="./js/pt_jssdk.v1.0.3.min.js"></script>
+<script src="./js/esl.js"></script>
+<script src="./js/zrender.js"></script>
+
+<script>
+    var colors = [
+        '#80c9ea',
+        '#9d6bf5',
+        '#f593d7',
+        '#f5806e',
+        '#f5c600',
+        '#4ac992'
+    ]
+
+    var data = [
+        {
+            text:'数理逻辑',
+            id:'0',
+            url:'./images/sf_animation/icons/math_logic_2.png',
+            sel_url:'./images/sf_animation/icons/math_logic_1.png',
+            color:'#f593d7',
+            desc:'<p><strong><span style="font-size: 18px;">数理逻辑</span></strong></p><p><span style="font-size: 14px;">数理逻辑是指处理一连串的推理，识别模式和顺序的能力，锻炼孩子的数理逻辑能力，有助于孩子的自立。</span></p><p><span style="font-size: 14px;"><br/></span></p>',
+            children:[
+                {
+                    text:'逻辑推理',
+                    url:'./images/sf_animation/icons/logic_2.png',
+                    sel_url:'./images/sf_animation/icons/logic_1.png',
+                    id:'1',
+                    desc:'<p><strong><span style="font-size: 18px;">逻辑推理</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>演绎；&nbsp;</span><span style="font-size: 14px;">2·&nbsp;</span><span style="font-size: 14px;">归纳；&nbsp;</span><span style="font-size: 14px;">3·&nbsp;</span><span style="font-size: 14px;">比较：大小、高矮、厚薄等量的比较；&nbsp;</span><span style="font-size: 14px;">4·&nbsp;</span><span style="font-size: 14px;">分类；&nbsp;</span><span style="font-size: 14px;">5·&nbsp;</span><span style="font-size: 14px;">推理。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">阳阳爱数学、</span><span style="font-size: 14px;">多纳数理思维、</span><span style="font-size: 14px;">果冻游戏机、</span><span style="font-size: 14px;">波比全脑大班、</span><span style="font-size: 14px;">旋转吧魔方、</span><span style="font-size: 14px;">Hello编程、</span><span style="font-size: 14px;">Q淘逻辑派对</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[
+                        {
+                            text:'Hello 编程',
+                            id:'2',
+                            url:'./images/sf_animation/productIcons/img_floor2_math_hello@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_math_hello@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">Hello编程</span></strong></p><p><span style="font-size: 14px;">5岁+/编程启蒙/逻辑思维；</span></p><p><span style="font-size: 14px;">专为儿童编程启蒙设计，国内唯一一款入选“全球编程一小时”课程案例的产品，让孩子在玩耍中激发创造力，积累编程思维。 </span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        },
+                        {
+                            text:'旋转吧，魔方',
+                            id:'3',
+                            url:'./images/sf_animation/productIcons/img_floor2_math_cube@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_math_cube@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">旋转吧魔方</span></strong></p><p><span style="font-size: 14px;">5岁+/手眼协调/独立思考；</span></p><p><span style="font-size: 14px;">结合图像识别技术，30步以内教孩子快速还原魔方，使玩魔方更具互动性和趣味性，激发孩子对魔方的兴趣和自信。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        },
+                        {
+                            text:'Q淘逻辑派对',
+                            id:'4',
+                            url:'./images/sf_animation/productIcons/img_floor2_math_ljpd@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_math_ljpd@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">Q淘逻辑派对</span></strong></p><p><span style="font-size: 14px;">观察与联想/比较与分类/数量与排序/图形与方位/推理与判断；</span></p><p><span style="font-size: 14px;">精选100道各地幼升小高频考察题型，5大逻辑能力培养，通过AR方式让孩子自主进行逻辑训练。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        }
+                    ]
+                },
+                {
+                    text:'数学与运算',
+                    id:'5',
+                    url:'./images/sf_animation/icons/math_calculate_2.png',
+                    sel_url:'./images/sf_animation/icons/math_calculate_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">数学与运算</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>数轴、坐标的简单概念；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>方位：里外上下前后、自己的左右。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">都都数学、</span><span style="font-size: 14px;">哈利学前班、</span><span style="font-size: 14px;">宝贝数学、</span><span style="font-size: 14px;">麦斯丝、</span><span style="font-size: 14px;">淘淘向右走</span></p><p><span style="font-size: 14px;"><br/></span></p>',
+                    children:[
+                        {
+                            text:'麦丝斯',
+                            id:'6',
+                            url:'./images/sf_animation/productIcons/img_floor2_math_mss@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_math_mss@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">麦斯丝</span></strong></p><p><span style="font-size: 14px;">5岁+/数理逻辑/幼升小数学；</span></p><p><span style="font-size: 14px;">内含从算术、几何、逻辑等7个维度3400多道幼升小名校面试题，针对不同年龄的孩子精心设置适龄的题型和题库，为幼升小保驾护航，并达成玩中学的最佳效果。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        },
+                        {
+                            text:'淘淘向右走',
+                            id:'7',
+                            url:'./images/sf_animation/productIcons/img_floor2_math_ttxyz@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_math_ttxyz@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">淘淘向右走</span></strong></p><p><span style="font-size: 14px;">4岁+/动手创造/想象力；</span></p><p><span style="font-size: 14px;">精选8大类700多种七巧板图形，通过有趣的故事剧情，让孩子融入游戏，拓展孩子想象力和创造力。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            text:'语言文化',
+            color:'#9d6bf5',
+            id:'8',
+            url:'./images/sf_animation/icons/study_lang_2.png',
+            sel_url:'./images/sf_animation/icons/study_lang_1.png',
+            desc:'<p>    <strong><span style="font-size: 18px;">语言文化</span></strong></p><p>    <span style="font-size: 14px;">自主阅读和汉语拼音是学好语言文化的基础和支柱，只有重视听看说写，才能收到较好的成效。</span></p><p>    <strong><span style="font-size: 18px;"><br/></span></strong></p>',
+            children:[
+                {
+                    text:'自主阅读',
+                    id:'9',
+                    url:'./images/sf_animation/icons/read_2.png',
+                    sel_url:'./images/sf_animation/icons/read_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">自主阅读</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;">1· 专注地阅读图书；</span><span style="font-size: 14px;">2· 能说出所阅读的作品主要内容；</span></p><p><span style="font-size: 14px;">3· 能根据故事的部分情节或图书画面线索猜想故事情节发展，进行续编创编故事；</span></p><p><span style="font-size: 14px;">4· 对阅读过的图书、听过的故事能说出自己的看法；</span></p><p><span style="font-size: 14px;">5· 根据故事内容分析推理并回答问题。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">WaWaYaYa爱读、</span><span style="font-size: 14px;">宝宝故事会、</span><span style="font-size: 14px;">经典绘本故事、</span><span style="font-size: 14px;">淘淘的童话之旅</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[
+                        {
+                            text:'淘淘的童话之旅',
+                            id:'10',
+                            url:'./images/sf_animation/productIcons/img_floor2_language_thzl@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_language_thzl@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">淘淘的童话之旅</span></strong></p><p><span style="font-size: 14px;">AR有声故事绘本/沉浸式阅读；</span></p><p><span style="font-size: 14px;">这是AR技术和绘本联手施展的奇妙魔法，书中故事场景以3D立体动画呈现，孩子还可与屏幕上的3D角色一起互动玩耍。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        }
+                    ]
+                },
+                {
+                    text:'学拼音',
+                    id:'11',
+                    url:'./images/sf_animation/icons/pinyin_2.png',
+                    sel_url:'./images/sf_animation/icons/pinyin_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">学拼音</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>学会汉语拼音，能读准声母、韵母、声调和整体认读音节，能准确拼读音节，正确书写声母、韵母和音节；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>能借助汉语拼音识字、正音、学说普通话。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">悟空拼音、</span><span style="font-size: 14px;">哈利学前班拼音篇、</span><span style="font-size: 14px;">熊孩子怪怪拼音历险记、</span><span style="font-size: 14px;">最新人教版小学语文导学</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[]
+                }
+            ]
+        },
+        {
+            text:'科学探索',
+            color:'#80c9ea',
+            id:'12',
+            url:'./images/sf_animation/icons/sci_disc_2.png',
+            sel_url:'./images/sf_animation/icons/sci_disc_1.png',
+            desc:'<p><strong><span style="font-size: 18px;">科学探索</span></strong></p><p><span style="font-size: 14px;">培养孩子主动探索的能力，能丰富其生活和积累各种知识，更能激发他们对科学的兴趣，在以后的工作学习中更加努力地去探索、发现周围的世界。</span></p><p><br/></p>',
+            children:[
+                {
+                    text:'动植物',
+                    id:'13',
+                    url:'./images/sf_animation/productIcons/',
+                    sel_url:'./images/sf_animation/productIcons/img_floor2_language_thzl@3x.png',
+                    desc:'<p><strong><span style="font-size: 18px;">动植物</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>常见动植物的主要特点和习性；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>能通过观察、比较和分析，发现并描述不同物体的特征或某个事物的前后变化。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">一棵树的季节、</span><span style="font-size: 14px;">Gro Garden、</span><span style="font-size: 14px;">动物百科、</span><span style="font-size: 14px;">动物冷知识</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    visible:false,
+                },
+                {
+                    text:'科学小实验',
+                    id:'14',
+                    url:'./images/sf_animation/icons/test_2.png',
+                    sel_url:'./images/sf_animation/icons/test_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">科学小实验</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>白天黑夜、四季规律、生命轮回；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>自然现象、风霜雨雪、彩虹、日食、星空……；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">3·&nbsp;</span>物理、化学小实验。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">科学小子席德、</span><span style="font-size: 14px;">玩乐星球之科学小实验、</span><span style="font-size: 14px;">宝宝的量子物理学、</span><span style="font-size: 14px;">奇妙电路</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[
+                        {
+                            text:'奇妙电路',
+                            id:'15',
+                            url:'./images/sf_animation/productIcons/img_floor2_science_dianlu@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_science_dianlu@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">奇妙电路</span></strong></p><p><span style="font-size: 14px;">5岁+/科学探索/电路启蒙；</span></p><p><span style="font-size: 14px;">将生活中的风扇、电灯等实用元素融入教具，通过实体安全教具、配套绘本和app，实现多元化学习模式，以达到更好的学习效果。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            text:'艺术创造',
+            color:'#4ac992',
+            id:'16',
+            url:'./images/sf_animation/icons/art_2.png',
+            sel_url:'./images/sf_animation/icons/art_1.png',
+            desc:'<p><strong><span style="font-size: 18px;">艺术创造</span></strong></p><p><span style="font-size: 14px;">艺术教育对孩子的思维活动都有强大的推动作用，从小培养孩子对音乐和绘画的爱好能培养孩子艺术审美，帮助塑造孩子完善人格。</span></p><p><br/></p>',
+            children:[
+                {
+                    text:'音乐律动',
+                    id:'17',
+                    url:'./images/sf_animation/icons/music_2.png',
+                    sel_url:'./images/sf_animation/icons/music_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">音乐律动</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>唱歌、即兴哼唱；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>跟随音乐的律动模仿动作；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">3·&nbsp;</span>会一两种乐器表演。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">咕力舞蹈学堂、</span><span style="font-size: 14px;">宝贝律动音乐、</span><span style="font-size: 14px;">Musical Puzzle、</span><span style="font-size: 14px;">班得瑞的奇幻花园</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[
+                        {
+                            text:'班得瑞的奇幻花园',
+                            id:'18',
+                            url:'./images/sf_animation/productIcons/img_floor2_art_bdr@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_art_bdr@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">班得瑞的奇幻花园</span></strong></p><p><span style="font-size: 14px;">3岁+/手眼协调/音乐鉴赏</span></p><p><span style="font-size: 14px;">精选多国名曲，通过专为孩子设计的音乐节拍游戏，在培养孩子音乐鉴赏力的同时，提升手眼协调和肢体协调性，发掘潜在的音乐天赋。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        }
+                    ]
+                },
+                {
+                    text:'涂涂画画',
+                    id:'19',
+                    url:'./images/sf_animation/icons/draw_2.png',
+                    sel_url:'./images/sf_animation/icons/draw_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">涂涂画画</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;">用绘画、涂色等表现自己观察到或想象的事物</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">宝宝巴士、</span><span style="font-size: 14px;">叫叫趣味填色、</span><span style="font-size: 14px;">叫叫创意绘画、</span><span style="font-size: 14px;">涂涂世界、</span><span style="font-size: 14px;">哈泥海洋</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[
+                        {
+                            text:'涂涂世界',
+                            id:'20',
+                            url:'./images/sf_animation/productIcons/img_floor2_art_ttsj@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_art_ttsj@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">涂涂世界</span></strong></p><p><span style="font-size: 14px;">3岁+/绘画/精细动作；</span></p><p><span style="font-size: 14px;">生动有趣的绘画启蒙，包含平涂法、点画法、图案法等6种绘画技巧轻松学习，同时深入浅出地带孩子认识七大洲的标志性建筑和动物。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        },
+                        {
+                            text:'哈尼海洋',
+                            id:'21',
+                            url:'./images/sf_animation/productIcons/img_floor2_art_hnhy@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_art_hnhy@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">哈泥海洋</span></strong></p><p><span style="font-size: 14px;">3岁+/创造力/精细动作；</span></p><p><span style="font-size: 14px;">好玩的彩泥游戏，促进孩子的手眼协调和精细动作发展，同时配套海洋动物模具，引导孩子边学边做，拓展学习海洋动物知识。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            text:'英语学习',
+            id:'22',
+            color:'#f5c600',
+            url:'./images/sf_animation/icons/engilsh_2.png',
+            sel_url:'./images/sf_animation/icons/engilsh_1.png',
+            desc:'<p><strong><span style="font-size: 18px;">英语学习</span></strong></p><p><span style="font-size: 14px;">语言环境对于一个人学习语言非常重要。在英语教学中除了让孩子学习单词外，还要尽量给孩子创设一种学习英语的情境，让孩子在轻松自如中学习英语，收效会更好。</span></p><p><br/></p>',
+            children:[
+                {
+                    text:'学单词',
+                    id:'23',
+                    url:'./images/sf_animation/icons/word_2.png',
+                    sel_url:'./images/sf_animation/icons/word_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">学单词</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>掌握常用单词和释义；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>掌握常用单词在具体语境中的使用。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">阳阳爱英语、</span><span style="font-size: 14px;">宝贝英语、</span><span style="font-size: 14px;">幼儿英语部位篇/生活用品篇、</span><span style="font-size: 14px;">Q淘英语派对</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[
+                        {
+                            text:'Q淘英语派对',
+                            id:'24',
+                            url:'./images/sf_animation/productIcons/img_floor2_english_yypd@3x.png',
+                            sel_url:'./images/sf_animation/productIcons/img_floor2_english_yypd@3x.png',
+                            desc:'<p><strong><span style="font-size: 18px;">Q淘英语派对</span></strong></p><p><span style="font-size: 14px;">识字母/会发音/拼图学单词；</span></p><p><span style="font-size: 14px;">26个英文字母、26首原创儿歌、24个英文单词……培养孩子“看到单词就会读，听到单词就会拼”的能力。</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                        }
+                    ]
+                },
+                {
+                    text:'情景英语',
+                    id:'25',
+                    desc:'<p><strong><span style="font-size: 18px;">情境英语</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>常见词组、短语、日常对话，能用英文做自我介绍和回答简单问题；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>剑桥幼儿英语、牛津幼儿英语。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">幼儿英语300句、</span><span style="font-size: 14px;">多纳情景英语、</span><span style="font-size: 14px;">火火兔学前英语、</span><span style="font-size: 14px;">叽里呱啦</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    visible:false
+                }
+            ]
+        },
+        {
+            text:'综合培养',
+            color:'#f5806e',
+            id:'26',
+            url:'./images/sf_animation/icons/general_2.png',
+            sel_url:'./images/sf_animation/icons/general_1.png',
+            desc:'<p><strong><span style="font-size: 18px;">综合培养</span></strong></p><p><span style="font-size: 14px;">让孩子养成良好的生活习惯以及拥有足够的安全常识都是十分必要的，为孩子养成好的习惯，并让他掌握应对危险的技巧和方法，会让孩子的成长更加一帆风顺。</span></p><p><span style="font-size: 14px;"><br/></span></p>',
+            children:[
+                {
+                    text:'习惯培养',
+                    id:'27',
+                    url:'./images/sf_animation/icons/habit_2.png',
+                    sel_url:'./images/sf_animation/icons/habit_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">习惯培养</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">1·&nbsp;</span>培养时间概念，按时吃饭、睡觉、做事情不拖拉，可以合理安排自己的时间和活动；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">2·&nbsp;</span>勤洗手、自己穿衣、吃饭、系鞋带等，根据天气增减衣服等生活卫生习惯；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">3·&nbsp;</span>学会分类整理物品、玩具书籍等个人物品，使用后放回原处，学会整理书包；</span></p><p><span style="font-size: 14px;"><span style="font-size: 14px;">4·&nbsp;</span>保护眼睛，不在昏暗的地方看书写字，不用脏手揉眼睛，看电视不超过20分钟。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">奇妙好习惯、</span><span style="font-size: 14px;">好习惯养成系列儿歌、</span><span style="font-size: 14px;">小美洗澡、</span><span style="font-size: 14px;">小美刷牙</span></p><p><span style="font-size: 14px;">&nbsp;</span></p>',
+                    children:[]
+                },
+                {
+                    text:'安全教育',
+                    id:'28',
+                    url:'./images/sf_animation/icons/safe_edu_2.png',
+                    sel_url:'./images/sf_animation/icons/safe_edu_1.png',
+                    desc:'<p><strong><span style="font-size: 18px;">安全教育</span></strong></p><p><span style="font-size: 14px;">目标能力：</span></p><p><span style="font-size: 14px;">培养孩子基本的交通安全意识、在校安全意识、防火安全意识、用电安全意识、户外活动安全意识等一系列安全常识和对孩子进行法制教育。</span></p><p><span style="font-size: 14px;"><br/></span></p><p><span style="font-size: 14px;">内容包：</span></p><p><span style="font-size: 14px;">嘟拉安全教育、</span><span style="font-size: 14px;">安全教育系列小故事、</span><span style="font-size: 14px;">交通安全知识、</span><span style="font-size: 14px;">儿童安全法则</span></p><p><br/></p>',
+                    children:[]
+                }
+            ]
+        }
+    ]
+</script>
+
+<script>
+    var winW = window.innerWidth,
+        winH = window.innerHeight,
+        cx = window.innerWidth/2,
+        cy = window.innerHeight/2,
+        gap = 10,
+        r = 44,
+        r0 = r-8
+        angle = 360/colors.length,
+        tipRectH = 188,
+        bottomBarH = 42,
+        bottomTipText = '16px Arial',
+        titleText = '34px Arial',
+        descText = '20px Arial',
+        titleTextBottom = 140;
+        
+        // alert(winW);
+        // alert(winH)
+        // if(winW<=320 && winH<= 460){
+        if(winW<=320){
+            r = 38;
+            r0 = r-8;
+            tipRectH = 120,
+            bottomBarH = 24;
+            bottomTipText = '12px Arial';
+            titleText = '26px Arial',
+            descText = '12px Arial';
+            titleTextBottom = 100;
+        }
+    require(
+        [
+            'zrender',
+            'zrender/tool/color',
+            'zrender/shape/Sector',
+            'zrender/shape/Line',
+            'zrender/Group',
+            'zrender/shape/Image',
+            'zrender/shape/Circle',
+            'zrender/shape/Text',
+            'zrender/shape/Polygon'
+        ],
+        function ( zrender, zrColor, SectorShape,Line,Group,ImageShape,Circle,Text,Polygon) {
+            var zr = zrender.init(document.getElementById('main'));
+            zr.clear();
+            document.querySelector('#resetBtn').addEventListener('click',function(){
+                if(isAnimating){
+                    return;
+                }
+                resetListSelect();
+                initShapes();
+                document.querySelector('#bottomAction').style.display = 'none';
+                document.querySelector('#intro').style.display = 'none';
+            });
+            document.querySelector('.list').addEventListener('click',function(e){
+                var item = e.target;
+                if(isAnimating || currentSelectListItem == item || currentSelectListItem == item.parentNode)return;
+                initShapes();
+                document.querySelector('#intro').style.display = 'none';
+                currentSelectListItem = item;
+                for(var i=0,l=this.childNodes.length;i<l;i++){
+                    var childItem = this.childNodes[i];
+                    if(childItem.dataset.itemid == item.dataset.itemid){
+                        var clicktargetid = childItem.dataset.clicktargetid;
+                        clickedTarget = getShapeById(clicktargetid);
+                        !hasScaled && animationNow()
+                        hasScaled = true;
+                        return;
+                    };
+                }
+                // this.childNodes.forEach(function(childItem){
+                //     alert(33);
+                //     if(childItem.dataset.itemid == item.dataset.itemid){
+                //         var clicktargetid = childItem.dataset.clicktargetid;
+                //         clickedTarget = getShapeById(clicktargetid);
+                //         !hasScaled && animationNow()
+                //         hasScaled = true;
+                //         alert(childItem.dataset.itemid);
+                //         return;
+                //     };
+                // })
+                
+            })
+
+            document.querySelector('#closeBtn').addEventListener('click',function(){
+                if(request('inapp')){
+                    pt_jssdk.webViewBack();
+                }
+            })
+            
+            // var data = ['#f593d7',
+            //     '#9d6bf5',
+            //     '#80c9ea',
+            //     '#4ac992',
+            //     '#f5c600',
+            //     '#f5806e'
+            // ];
+            var startAngle = -30+5;
+            var shapeList = [],
+                treeList = [],
+                shapeGList = [],
+                treeGList = [],
+                clickedTarget,
+                treeMapData = {},
+                iconImageW = 20,
+                iconImageH = 20,
+                iconR = 10,
+                currentSelectIcons = {
+                    img:null,
+                    circle:null
+                };
+                hasScaled = false,
+                isAnimating = false;
+                currentSelectListItem =null;
+                parentCircleArr = [];
+                parentIconArr = [];
+                
+            var padIcon = null;
+
+            //整个图形的parent
+            var g = new Group({
+                rotation:[0,cx,cy],
+                scale:[1,1,cx,cy],
+                position:[0,0]
+            });
+
+            //首页提示的parent
+            var tipG = new Group()
+
+            initDataToMap();
+            // initProListItems();
+            var u = navigator.userAgent;
+            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1){
+                setTimeout(function(){
+                    initShapes();
+                },500)
+            }else{
+                initShapes();
+            }
+                
+
+            function initShapes(){
+                zr.clear();
+                document.querySelector('.list').innerHTML = '';
+
+                initData();
+                createTitleText();
+                createBottomTip();
+                buildPadIcon();
+                buildRedaLine();
+                
+                for (var i = 0, l = data.length; i < l; i++){
+                    var treeData = data[i];
+                    var color = data[i].color;
+                    var endAngle = startAngle+angle -5
+
+                    var shape_g = new Group()
+
+                    var tree_g = new Group();
+                    if(treeData.visible ===false)continue;
+                    var ss = buidShape(startAngle,endAngle,color,i);
+
+                    createListItem(treeData,ss.id);
+
+                    var child_angle = -((startAngle+endAngle)/2)/180*Math.PI;
+
+                    var startPoint = getPointOfCircle(cx,cy,r,child_angle);
+                    var endPoint = getPointOfCircle(cx,cy,3*r/2,child_angle);
+
+                    var reduceAngle = Math.PI/2;
+
+                    var treeG = buildTree(treeData,startPoint,endPoint,child_angle,reduceAngle,color,shape_g,ss.id,i)
+                    
+                    shape_g.addChild(ss);
+                    // shape_g.addChild(tree);
+
+                    g.addChild(shape_g);
+                    // g.addChild(treeG);
+                    shapeList.push(ss);
+                    // treeList.push(tree);
+                    shapeGList.push(shape_g);
+                    // treeGList.push(treeG);
+                    startAngle = endAngle +5;
+                }
+                zr.addShape(g);
+                zr.render();
+                
+            }
+
+            function createListItem(item,id){
+                var color = item.color,
+                    text = item.text;
+                var s = '<div class="list_item select" data-itemid="'+item.id+'" data-clickTargetId="'+id+'" data-target="itemBox" data-color="'+color+'">'
+                        + '<div class="point" data-itemid="'+item.id+'" data-clickTargetId="'+id+'" style="background-color:'+color+'"></div>'
+                        + '<div class="text" data-itemid="'+item.id+'" data-clickTargetId="'+id+'" style="color:'+color+'">'+text+'</div>'
+                        + '</div>';
+                document.querySelector('.list').innerHTML += s;
+            }
+
+            function initProListItems(){
+                document.querySelector('.list').innerHTML = '';
+                var s = ''
+                for(var i=0,l=data.length;i<l;i++){
+                    var item = data[i],
+                        color = item.color,
+                        text = item.text;
+
+                    s += '<div class="list_item select" data-target="itemBox" data-color="'+color+'">'
+                        + '<div class="point" style="background-color:'+color+'"></div>'
+                        + '<div class="text" style="color:'+color+'">'+text+'</div>'
+                        + '</div>';
+                }
+                document.querySelector('.list').innerHTML = s;
+            }
+            function animationNow(){
+                    // alert(1);
+                    // setRadialColor();
+                    tipG.clearChildren();
+                    
+                    var selectDomItem = document.querySelector('.list').childNodes[clickedTarget.index];
+                    selectDomItem && doSelectListItem(selectDomItem);
+
+                    var rotation = (90-(clickedTarget.style.startAngle + clickedTarget.style.endAngle)/2)/180*Math.PI;
+
+                    var rotate_angle = (90-(clickedTarget.style.startAngle + clickedTarget.style.endAngle)/2)
+                    isAnimating = true;
+                    zr.animate(g.id)
+                        .when(500, {
+                            rotation : [rotation,cx,cy],
+                            position:[0,cy-tipRectH]
+                        })
+                        .when(300,{
+                            scale:[2,2,cx,cy]
+                        })
+                        .done(function(){
+                            // return;
+                            var small_agl = 180/5,
+                                j=0,
+                                scaleStartAngle = 180-rotate_angle;
+                                    
+                            for(var i=0,l=shapeList.length;i<l;i++){
+                                var item = shapeList[i];
+                                var old_startAngle = item.style.startAngle,
+                                        old_endAngle = item.style.endAngle;
+                                if(item.id == clickedTarget.id){
+                                    var index = i;
+                                    // zr.clear();
+                                    // return;
+                                    zr.addShape(shapeGList[i]);
+                                    zr.render();
+                                    // console.log(item.style.endAngle)
+                                    createIntroRect();
+                                    setIntroDesc()
+                                    zr.animate(item.id, 'style')
+                                        .when(500, {
+                                            startAngle:old_startAngle-80,
+                                            endAngle:old_endAngle+80
+
+                                        })
+                                        .done(function(){
+                                            // shapeGList[index].clearChildren();
+                                            changeToImage(index);
+                                            isAnimating = false;
+                                            document.querySelector('#bottomAction').style.display = 'block';
+                                        })
+                                        .start();
+
+                                }else{
+                                    shapeGList[i].clearChildren();
+                                    // console.log(shapeGList[i]);
+                                    // shapeGList[i].scale = [0, 0, 0, 0];
+                                    // return;
+                                    // zr.delShape(item.id);
+                                    // var scaleEndAngle = scaleStartAngle+small_agl;
+                                    // console.log(scaleStartAngle,scaleEndAngle)
+                                    // zr.animate(item.id, 'style')
+                                    //     .when(1500, {
+                                    //         startAngle:scaleStartAngle,
+                                    //         endAngle:scaleEndAngle-5
+                                    //     })
+                                    //     // .done(function(){
+                                            
+                                    //     // })
+                                    //     .start();
+                                    // scaleStartAngle = scaleEndAngle;
+                                }
+                            }
+                        })
+                        .start();
+                        
+                zr.animate(padIcon.id)
+                    .when(500,{
+                        position:[0,cy-tipRectH]
+                    })
+                    .when(1,{
+                        scale:[2,2,cx,cy]
+                    })
+                    .start();
+            }
+
+            function setRadialColor(){
+                zr.addShape(new Circle({
+                    style: {
+                        x: cx, y: winH-tipRectH, r : 200,
+                        color : zrColor.getRadialGradient(
+                            cx, winH-tipRectH, 0, cx, winH-tipRectH, 200,
+                            [[0, '#7d476e'], [1,'#302d32']]
+                        )
+                    },
+                    draggable : true
+                }));
+                zr.render();
+            }
+
+            function buildRedaLine(index){
+                var lineBg = new ImageShape({
+                    style: {
+                        image: './images/sf_animation/bg/lineBg.png',
+                        width:winW,
+                        height:winH,
+                        x: 0,
+                        y: 0,
+                        opacity:1
+                    },
+                    highlightStyle:{
+                        opacity:0
+                    }
+                    // scale:0
+                })
+                zr.addShape(lineBg);
+                zr.render();
+            }
+
+            function buidShape(startAngle,endAngle,color,i){
+                var ss = new SectorShape({
+                    style : {
+                        x : cx,          // 圆心横坐标
+                        y : cy,          // 圆心纵坐标
+                        r0 : r0,        // 圆环内半径
+                        r : r,          // 圆环外半径
+                        startAngle : startAngle,
+                        endAngle : endAngle,
+                        brushType : 'both',
+                        color : color,
+                        // strokeColor : 'red',
+                    },
+                    index:i,
+                    // highlightStyle
+                    highlightStyle : {
+                        color:'transparent',
+                        lineWidth:0
+                    },
+                    clickable : true,
+                    onclick : function(params) {
+                        clickedTarget = params.target;
+                        clickedTarget.z = 999
+                        // console.log(clickedTarget.style.startAngle,clickedTarget.style.endAngle)
+                        !hasScaled && animationNow()
+                        hasScaled = true;
+                        // console.log(params);
+                    }
+                })
+                return ss;
+            }
+
+            function buildPadIcon(){
+                padIcon = new ImageShape({
+                    style: {
+                        image: './images/sf_animation/icons/pad_icon.png',
+                        width:40,
+                        height:40,
+                        x: cx-20,
+                        y: cy-20
+                    },
+                    highlightStyle:{
+                        opacity:0
+                    },
+                    z:999,
+                });
+                // g.addChild(padIcon)
+                zr.addShape(padIcon);
+                zr.render();
+            }
+
+            function buildTree(treeData,startPoint,endPoint,angle,reduceAngle,color,parent,id){
+                // var angle = -((startAngle+endAngle)/2)/180*Math.PI;
+                // for(var i=0,l=treeData.length;i<L;i++){
+                //     var item = treeData[i];
+                //     var text = item.text;
+                //     // var cild_startAngle = startAngle
+                //     if(item.children||item.children.length>0){
+                //         buildTree();
+                //     }
+                // }
+                // console.log(Math.PI/2);
+                if(treeData.visible ===false)return;
+                var img = treeData.url|| './img_floor2_math_cube@3x.png';
+                
+                // var angle = 3*Math.PI/2;
+                
+                var line = new Line({
+                    style: {
+                        xStart: startPoint.x,
+                        yStart: startPoint.y,
+                        xEnd: endPoint.x,
+                        yEnd: endPoint.y,
+                        strokeColor:color,
+                        lineWidth: 2
+                    },
+                    highlightStyle : {
+                        strokeColor:'transparent',
+                        color:'transparent',
+                        lineWidth:0
+                    },
+                    shapeType:'line',
+                    startPoint:startPoint,
+                    endPoint:endPoint,
+                    angle:angle
+
+                });
+
+                var treeIcon = null,treeIcon2=null;
+                    
+
+                    if(treeData.children){
+
+                        treeIcon = new Circle({
+                            style: {
+                                x: endPoint.x,
+                                y: endPoint.y,
+                                r: 8,
+                                color: color
+                            },
+                            highlightStyle : {
+                                color:'transparent',
+                                lineWidth:0
+                            },
+                            clickId:id,
+                            dataId:treeData.id,
+                            color:color,
+                            shapeType:'parentCircle',
+                            z:9999,
+                            clickable : true,
+                            endPoint:endPoint,
+                            angle:angle,
+                            onclick : function(params) {
+                                // console.log(123321);
+                                clickedTarget = getShapeById(params.target.clickId);
+                                !hasScaled && animationNow();
+                                hasScaled = true;
+                            }
+                        });
+
+                        treeIcon2 = new ImageShape({
+                            style: {
+                                image: img,
+                                width:12,
+                                height:12,
+                                x: endPoint.x-6,
+                                y: endPoint.y-6
+                            },
+                            highlightStyle : {
+                                strokeColor:'transparent',
+                                color:'transparent',
+                                lineWidth:0
+                            },
+                            clickId:id,
+                            dataId:treeData.id,
+                            sel_url:treeData.sel_url,
+                            desc:treeData.desc,
+                            url:treeData.url,
+                            endPoint:endPoint,
+                            angle:angle,
+                            shapeType:'parentImg',
+                            z:9998,
+                            clickable : true,
+                            onclick : function(params) {
+                                clickedTarget = getShapeById(params.target.clickId);
+                                doSelectIcon(treeIcon2,treeData.id,treeIcon,parent);
+                                // animationNow();
+                            }
+                        });
+
+                        // parentCircleArr.push(treeIcon);
+                        // parentIconArr.push(treeIcon2);
+                    }else{
+                        treeIcon = new Circle({
+                            style: {
+                                x: endPoint.x,
+                                y: endPoint.y,
+                                r: 8,
+                                color: color
+                            },
+                            highlightStyle : {
+                                strokeColor:'transparent',
+                                color:'transparent',
+                                lineWidth:0
+                            },
+                            clickId:id,
+                            dataId:treeData.id,
+                            color:color,
+                            shapeType:'circle',
+                            z:9999,
+                            clickable : true,
+                            endPoint:endPoint,
+                            angle:angle,
+                            onclick : function(params) {
+                                clickedTarget = getShapeById(params.target.clickId);
+                                !hasScaled && animationNow();
+                                hasScaled = true;
+                            }
+                        });
+
+                        treeIcon2 = new ImageShape({
+                            style: {
+                                image: img,
+                                width:16,
+                                height:16,
+                                x: endPoint.x-8,
+                                y: endPoint.y-8
+                            },
+                            highlightStyle : {
+                                strokeColor:'transparent',
+                                color:'transparent',
+                                lineWidth:0
+                            },
+                            sel_url:treeData.sel_url,
+                            desc:treeData.desc,
+                            url:treeData.url,
+                            endPoint:endPoint,
+                            angle:angle,
+                            clickId:id,
+                            dataId:treeData.id,
+                            shapeType:'img',
+                            z:9998,
+                            clickable : true,
+                            onclick : function(params) {
+                                clickedTarget = getShapeById(params.target.clickId);
+                                doSelectProductIcon(treeIcon,treeIcon2,parent);
+                                // animationNow();
+                            }
+                        });
+                    }
+                
+                parent.addChild(line);
+                parent.addChild(treeIcon);
+                parent.addChild(treeIcon2);
+                treeList.push(line);
+                
+                
+                var child_tree = treeData.children;
+                if(child_tree && child_tree.length>0){
+                    for(var i=0,l=child_tree.length;i<l;i++){
+                        // color = '#000'
+                        var child_angle = angle-reduceAngle/2 + reduceAngle*i;
+                        // var child_angle = angle-Math.PI/4;
+                        // var child_angle = angle;
+                        var child_treeData = child_tree[i];
+                        var child_startPoint = endPoint;
+                        var child_endPoint = getPointOfCircle(endPoint.x,endPoint.y,0.8*r,child_angle);
+                        reduceAngle -=Math.PI/16;
+                        buildTree(child_treeData,child_startPoint,child_endPoint,child_angle,reduceAngle,color,parent,id);
+                    }
+                }
+                // return parent;
+            }
+
+            //点击之后替换圆点为icon
+            function changeToImage(i){
+                var treeData = data[i];
+                var shape = shapeList[i]
+                var parent = shapeGList[i];
+                // console.log(shapeGList);
+                // console.log(parent);
+                var x = winW/2,
+                    y = winH-tipRectH;
+                var prePointEnd = getPointOfCircle(x,y,r,Math.PI/2);
+                // var selectedFirstCircle = false;
+                // var selectedFirstIcon =false;
+                var firstSelectedShape = null;
+                var firstSelectedCircle = null;
+                parent.eachChild(function(item){
+                    if(item.shapeType == 'img'){
+                        var endPoint = item.endPoint;
+                        item.z = 10000,
+                        item.style.width = iconImageW
+                        item.style.height = iconImageH
+                        item.style.x = endPoint.x - iconImageW/2
+                        item.style.y = endPoint.y - iconImageH/2
+                    }else if(item.shapeType == 'parentCircle' || item.shapeType == 'circle'){
+                        // doSelectIcon(shape,id,circle,parent)
+                        if(!firstSelectedCircle){
+                            firstSelectedCircle =item;
+                        }
+                        item.style.r = 11;
+                    }else if(item.shapeType == 'parentImg'){
+                        if(!firstSelectedShape){
+                            firstSelectedShape =item;
+                        }
+                        var endPoint = item.endPoint;
+                        item.z = 10000
+                    }else if(item.shapeType == 'circle'){
+                        // item.invisible = true;
+                    }
+                    zr.modShape(item.id,item)
+                });
+                zr.refresh();
+                doSelectIcon(firstSelectedShape,firstSelectedShape.dataId,firstSelectedCircle,parent);
+                //     }else if(item.shapeType == 'line'){
+                //         var startPoint = item.startPoint;
+                        // var endPoint = item.endPoint;
+                        // var angle = item.angle;
+
+                        
+
+                //         var endPoint = getPointOfCircle(prePointEnd.x,prePointEnd.y,3*r,angle);
+
+                //         item.style.xEnd = endPoint.x-10;
+                //         item.style.yEnd = endPoint.y-10
+                //         // if(startPoint.x -endPoint.x>0){
+                //             // item.style.xEnd = endPoint.x-10;
+                //             // item.style.yEnd = endPoint.y-10
+                //         // }else{
+                //         //     item.style.xEnd = endPoint.x+10;
+                //         //     item.style.yEnd = endPoint.y+10
+                //         // }
+                //     }
+                    // zr.modShape(item.id,item)
+                    // zr.refresh();
+                // })
+                
+                // var x = winW/2,
+                //     y = winH-tipRectH-bottomBarH;
+                //     angle = 3*Math.PI/4,
+                //     color = treeData.color
+                // var startPoint = getPointOfCircle(x,y,r,angle);
+                // var endPoint = getPointOfCircle(x,y,3*r/2,angle);
+                // var reduceAngle =Math.PI/2;
+                // parent.clearChildren();
+                // buildTree(treeData,startPoint,endPoint,angle,reduceAngle,color,parent,shape.id,true);
+            }
+
+            //构建首页tip部分
+            function createTitleText(){
+                var title = new Text({
+                    style: {
+                        text: '葡萄平板',
+                        x: 20,
+                        y: winH-titleTextBottom,
+                        textFont: titleText,
+                        color:'#fff'
+                    }
+                });
+                var sec = new Text({
+                    style: {
+                        text: '搭载自主学习系统',
+                        x: 20,
+                        y: winH-titleTextBottom+bottomBarH,
+                        textFont: descText,
+                        color:'#fff'
+                    }
+                });
+
+                tipG.addChild(title);
+                tipG.addChild(sec);
+                // zr.addShape(title);
+                zr.addShape(tipG);
+                zr.render();
+            }
+
+            function createBottomTip(){
+                var shape = new Polygon({
+                    style: {
+                        // 100x100的正方形
+                        pointList: [[0, winH-bottomBarH], [winW, winH-bottomBarH], [winW, winH], [0, winH]],
+                        color: '#302d32',
+                        text:'点击圆点查看技能详情',
+                        textColor:'#959595',
+                        textFont:bottomTipText,
+                        textPosition :'inside',
+                        textBaseline : 'middle',
+                    },
+                    highlightStyle : {
+                        color:'transparent',
+                        lineWidth:0
+                    },
+                });
+                // var tipText = new Text({
+                //     style: {
+                //         text: '点击原点查看技能详情',
+                //         x: 20,
+                //         y: winH-100,
+                //         textFont: '20px Arial',
+                //         color:'#fff'
+                //     }
+                // });
+                tipG.addChild(shape);
+                zr.addShape(tipG);
+                zr.render();
+            }
+
+            // setTimeout(function(){createIntroRect()},3000)
+
+            function createIntroRect(){
+                var shape = new Polygon({
+                    style: {
+                        // 100x100的正方形
+                        pointList: [[0, winH-bottomBarH-2], [winW, winH-bottomBarH-2], [winW, winH-bottomBarH-2], [0, winH-bottomBarH-2]],
+                        color: '#302d32',
+                    },
+                    highlightStyle : {
+                        color:'transparent',
+                        lineWidth:0
+                    },
+                    z:1000
+                });
+
+                zr.addShape(shape);
+                zr.render();
+
+                zr.animate(shape.id, 'style')
+                    .when(300, {
+                        pointList:[[0, winH-tipRectH], [winW, winH-tipRectH], [winW, winH-bottomBarH-2], [0, winH-bottomBarH-2]]
+
+                    })
+                    .done(function(){
+                        document.querySelector('#intro').style.display = 'block';
+                    })
+                    .start();
+            }
+
+            function initDataToMap(treeData){
+                treeData = treeData?treeData:data;
+                for(var i=0,l=treeData.length;i<l;i++){
+                    var item = treeData[i],
+                        id = item.id,
+                        children = item.children;
+                    if(!treeMapData[id]){
+                        treeMapData[id] = item;
+                    }else{
+                        console.error('id重复：'+item.text);
+                    };
+                    if(children&&children.length>0){
+                        initDataToMap(children);
+                    }
+                }
+            }
+
+            function selectFirstCircleIcon(){
+
+            }
+
+            function resetIcons(){
+                if(!currentSelectIcons.img||!currentSelectIcons.circle)return;
+                var shape = currentSelectIcons.img,
+                    circle =currentSelectIcons.circle;
+                
+                if(shape.shapeType == 'img'){
+                    shape.style.width = iconImageW
+                    shape.style.height = iconImageH
+                    shape.style.x += 1;
+                    shape.style.y += 1;
+                }else if(shape.shapeType == 'parentImg'){
+                    shape.style.image = shape.url;
+                };
+
+                // if(circle.shapeType == 'parentCircle'){
+                    circle.style.color = circle.color;
+                    circle.style.r = iconR;
+                // }else{
+                //     circle.style.r = 11;
+                // }
+                
+            }
+
+            function doSelectIcon(shape,id,circle,parent){
+                resetIcons();
+                document.querySelector('#intro').scrollTop = 0;
+                setIntroDesc(shape.desc);
+                var dataItem =treeMapData[id];
+                    shape.style.image = dataItem.sel_url;
+                    circle.style.color = '#fff';
+                    circle.style.r = 12;
+                    zr.modShape(shape.id,shape)
+                    zr.modShape(circle.id,circle)
+                    zr.refresh();
+                currentSelectIcons.img =shape;
+                currentSelectIcons.circle =circle;
+            }
+
+            function doSelectProductIcon(circle,shape,parent){
+                resetIcons();
+                document.querySelector('#intro').scrollTop = 0;
+                setIntroDesc(shape.desc)
+                currentSelectIcons.img =shape;
+                currentSelectIcons.circle =circle;
+                zr.animate(circle.id,'style')
+                    .when(200,{
+                        color:'#fff',
+                        r:12
+                    })
+                    .start();
+                zr.animate(shape.id,'style')
+                    .when(200,{
+                        width:22,
+                        height:22,
+                        x:shape.endPoint.x - 11,
+                        y:shape.endPoint.y - 11
+                    })
+                    .start();
+                // circle.style.color = '#fff';
+                // circle.style.r = 12;
+                // img.style.width = 22,
+                // img.style.height = 22;
+                // img.style.x = img.endPoint.x - 11;
+                // img.style.y = img.endPoint.y - 11;
+                // zr.modShape(circle.id,circle)
+                // zr.modShape(img.id,img)
+                // zr.refresh();
+            }
+
+            //设置右上角选中
+            function doSelectListItem(item){
+                resetListSelect();
+                if(item.dataset.target == 'itemBox'){
+                    item.style.backgroundColor = item.dataset.color;
+                    item.childNodes[1].style.color = '#fff';
+                    item.childNodes[0].style.backgroundColor = '#fff';
+                }else if(item.parentNode.dataset.target == 'itemBox'){
+                    item.parentNode.style.backgroundColor = item.parentNode.dataset.color;
+                    item.parentNode.childNodes[1].style.color = '#fff';
+                    item.parentNode.childNodes[0].style.backgroundColor = '#fff';
+                }
+            }
+
+            function resetListSelect(){
+                var childNodes = document.querySelector('.list').childNodes;
+                for(var i=0,l=childNodes.length;i<l;i++){
+                    var item = childNodes[i];
+                    item.style.backgroundColor = 'transparent';
+                    var color = item.dataset.color;
+                    item.childNodes[0].style.backgroundColor = color;
+                    item.childNodes[1].style.color = color;
+                }
+                // document.querySelector('.list').childNodes.forEach(function(item){
+                //     item.style.backgroundColor = 'transparent';
+                //     var color = item.dataset.color;
+                //     item.childNodes[0].style.backgroundColor = color;
+                //     item.childNodes[1].style.color = color;
+                // })
+            }
+
+            function setIntroDesc(desc){
+                document.querySelector('#intro').innerHTML = desc||'';
+            }
+
+            function getPointOfCircle(x0,y0,r,a){//x0,y0 圆形坐标,r半径，a是角度
+                var x1 = x0 + r * Math.cos(a)
+                var y1 = y0 + r * Math.sin(a)
+                return {
+                    x:x1,
+                    y:y1
+                }
+            }
+
+            function getShapeById(id){
+                for(var i=0,l=shapeList.length;i<l;i++){
+                    var shape = shapeList[i];
+                    if(shape.id == id){
+                        return shape;
+                    }
+                }
+                return null;
+            }
+
+            function request(key) {
+                var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+                var result = window.location.search.substr(1).match(reg);
+                return result ? decodeURIComponent(result[2]) : null; //decodeURIComponent
+            };
+
+            function initData(){
+                startAngle = -30+5;
+                shapeList = [],
+                treeList = [],
+                shapeGList = [],
+                clickedTarget;
+                g = new Group({
+                    rotation:[0,cx,cy],
+                    scale:[1,1,cx,cy],
+                    position:[0,0]
+                });
+                // treeMapData = {},
+                iconImageW = 20,
+                iconImageH = 20,
+                iconR = 10,
+                currentSelectIcons = {
+                    img:null,
+                    circle:null
+                };
+                hasScaled = false;
+                isAnimating = false;
+                // currentSelectListItem =null;
+
+                var padIcon = null;
+            }
+        }
+    );
+</script>  

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/product.css" />
+	</head>
+
+	<body>
+		<section id="app">
+			<img src="images/img_web_jump_tips@3x.png"  class="openBrowser" v-if="isShow"/>
+			<div class="main">
+			<div class="video">
+				<div class="box" v-if="isVideo">
+					<!--<div class="play_icon" id="play_icon" @click="videoPlay" v-if="isvideoBtn"></div>-->
+					<div id="youkuplayer" style="width: 100%;height: 100%"></div>
+				</div>
+				<img v-bind:src="video_cover" v-else/>
+			</div>
+			<div class="product-acticle">
+				<h2 v-text="video_title"></h2>
+				<template v-if="features.length>0">
+					<template v-for="(item,index) in features">
+						<p><span>·</span>{{item}}</p>
+					</template>
+				</template>
+				<template v-else>
+				   	<p></p>
+				</template>
+				<h3 v-if="result.type_id==1" v-text="result.pre_sale_str"></h3>
+			</div>
+			<div class="productdesc">
+				<div class="title">
+					<div class="text">产品介绍</div>
+				</div>
+				<div class="general">
+					<div id="editor" class="editor" v-html="generalization"></div>
+					<a class="open" v-show="ok==true" @click="changeEditorH()">点击展开完整介绍</a>
+				</div>
+			</div>
+			<div class="user-judge">
+				<div class="title">
+					<div class="text">用户评论</div>
+				</div>
+				<ul class="list">
+					<li class="item" v-for="(item,index) in userlist" v-if="index<=2">
+						<img :src="item.avatar==''?'images/661497426111_.pic.jpg':item.avatar" class="user-photo" />
+						<div class="right">
+							<div class="title2"><span v-text="item.username"></span><time v-text="dateFormat(item.created_at)"></time></div>
+							<blockquote v-text="item.content"></blockquote>
+							<ul class="pics">
+								<li v-for="pic in item.comment_image">
+									<img v-bind:src="pic" @click="clickImg($event)" />
+								</li>
+							</ul>
+							<ul class="sku">
+								<li v-text="item.spec"></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<div class="tip">更多商品介绍及评价请在葡萄乐园APP中查看</div>
+			</div>
+			</div>
+			<footer>
+				<div class="price" id="price"><span v-text="price"></span><span class="exercise" v-if="sku_name!==''" v-text="sku_name"></span></div>
+				<a @click="openApp">立即去葡萄乐园购买</a>
+			</footer>
+			<template v-if="showImg">
+				<!-- 过渡动画 -->
+				<transition name="fade">
+					<div class="img-view" @click="showImg=false">
+						<!-- 遮罩层 -->
+						<div class="img-layer"></div>
+						<div class="img">
+							<img :src="imgSrc">
+						</div>
+					</div>
+				</transition>
+			</template>
+		</section>
+		<script src="js/util.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/view-port.min.js"></script>
+		<!--<script src="js/zepto.min.js"></script>-->
+		<script type="text/javascript" src="//player.youku.com/jsapi"></script>
+		<script type="text/javascript" src="js/axios.min.js"></script>
+		<script src="js/product.min.js"></script>
+	</body>
+
+</html>

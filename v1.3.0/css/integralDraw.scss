@@ -1,0 +1,445 @@
+@function px($size) {
+    @return $size / 375 * 1rem;
+ }
+// * {
+//   overflow: hidden;
+// }
+ html,body {
+     width: 100%;
+     height: 100%;
+     overflow: hidden;
+ }
+ @-webkit-keyframes slideOutDown {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, 150%, 0);
+    transform: translate3d(0, 150%, 0);
+  }
+}
+
+@keyframes slideOutDown {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, 150%, 0);
+    transform: translate3d(0, 150%, 0);
+  }
+}
+
+.slideOutDown {
+  -webkit-animation: slideOutDown 1s ease-in-out 0s forwards 1;
+  animation: slideOutDown 1s ease-in-out 0s forwards 1;
+}
+@-webkit-keyframes wobble {
+     0% {
+         -webkit-transform:rotate(0deg);
+         -webkit-transform-origin: top center;
+     }
+     10% {
+         -webkit-transform:rotate(-15deg);
+         -webkit-transform-origin: top center;
+     }
+     20% {
+         -webkit-transform:rotate(15deg);
+         -webkit-transform-origin: top center;
+     }
+     30% {
+         -webkit-transform:rotate(-22deg);
+         -webkit-transform-origin: top center;
+     }
+     40% {
+         -webkit-transform:rotate(22deg);
+         -webkit-transform-origin: top center;
+     }
+     50% {
+         -webkit-transform:rotate(-30deg);
+         -webkit-transform-origin: top center;
+     }
+     60% {
+         -webkit-transform:rotate(30deg);
+         -webkit-transform-origin: top center;
+     }
+     70% {
+         -webkit-transform:rotate(-22deg);
+         -webkit-transform-origin: top center;
+     }
+     80% {
+         -webkit-transform:rotate(22deg);
+         -webkit-transform-origin: top center;
+     }
+     90% {
+         -webkit-transform:rotate(-15deg);
+         -webkit-transform-origin: top center;
+     }
+     100% {
+         -webkit-transform:rotate(0deg);
+         -webkit-transform-origin: top center;
+     }
+ }
+ @keyframes wobble {
+     0% {
+         transform:rotate(0deg);
+         transform-origin: top center;
+     }
+     10% {
+         transform:rotate(-15deg);
+         transform-origin: top center;
+     }
+     20% {
+         transform:rotate(15deg);
+         transform-origin: top center;
+     }
+     30% {
+         transform:rotate(-22deg);
+         transform-origin: top center;
+     }
+     40% {
+         transform:rotate(22deg);
+         transform-origin: top center;
+     }
+     50% {
+         transform:rotate(-30deg);
+         transform-origin: top center;
+     }
+     60% {
+         transform:rotate(30deg);
+         transform-origin: top center;
+     }
+     70% {
+         transform:rotate(-22deg);
+         transform-origin: top center;
+     }
+     80% {
+         transform:rotate(22deg);
+         transform-origin: top center;
+     }
+     90% {
+         transform:rotate(-15deg);
+         transform-origin: top center;
+     }
+     100% {
+         transform:rotate(0deg);
+         transform-origin: top center;
+     }
+ }
+ .wobble {
+     -webkit-animation: wobble 5s linear 0s 1;
+     animation: wobble 5s linear 0s 1;
+ }
+@-webkit-keyframes slideInLeft {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        -webkit-opacity: 1;
+      }
+      80% {
+        opacity: 1;
+        -webkit-opacity: 1;
+      }
+      to {
+        -webkit-transform: translate3d(px(200), 0, 0);
+        transform: translate3d(px(200), 0, 0);
+        opacity: 0;
+        -webkit-opacity: 0;
+      }
+}
+@keyframes slideInLeft {
+    from {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        -webkit-opacity: 1;
+      }
+      80% {
+        opacity: 1;
+        -webkit-opacity: 1;
+      }
+      to {
+        -webkit-transform: translate3d(px(200), 0, 0);
+        transform: translate3d(px(200), 0, 0);
+        opacity: 0;
+        -webkit-opacity: 0;
+      }
+}
+.slideInLeft {
+    -webkit-animation: slideInLeft 2s ease-in-out 0s infinite;
+    animation: slideInLeft 2s ease-in-out 0s infinite;
+}
+ .banner-images {
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: 100% 100%;
+ }
+.cxd-banner {
+    @extend .banner-images;
+    width: 100%;
+    background-image: url(../images/img_lucky_dip_banner_big@3x.jpg);
+    height: px(211);
+    font-size: px(14);
+    position: relative;
+    color: #fff;
+    div.btn-draw-rule {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        height: px(20);
+        position: absolute;
+        bottom: px(61);
+        color: #fff;
+        text-align: center;
+    }
+    .show-tip {
+       text-align: left;
+       position: absolute;
+       bottom: 0px;
+       right: px(15);
+       left: px(15);
+       height: px(32);
+       line-height: px(32);
+       padding-left: px(36);
+       border-radius: px(20);
+       background: url(../images/icon_16_trumpet_w@3x.png) rgba(0, 0, 0, 0.5) no-repeat px(10) center;
+       background-size: px(16) px(16);
+       overflow: hidden;
+       .swiper-container2 {
+            height: px(32);
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .swiper-slide {
+            text-align: left;
+            font-size: px(14);
+            color: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: left;
+            justify-content: left;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    }
+}
+.wr {
+    width: px(96);
+}
+.winpro-list {
+    width: 100%;
+    height: calc(100% - .56267rem * 2);
+    background-color: #8B49F6;
+    .swiper-container {
+        width: auto;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        border-radius: px(2);
+        width: px(96);
+        height: px(72);
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        figure {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            img {
+               margin: 0 auto;
+               margin-top: px(5);
+               width: px(40);
+               height: px(40);
+               vertical-align: middle;
+               display: block;
+            }
+            figcaption {
+                margin-top: px(2);
+                display: block;
+                font-size: px(12);
+                color: #959595;
+                text-align: center;
+                width: 100%;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
+        }
+    }
+}
+.draw-price {
+    @extend .banner-images;
+    width: 100%;
+    height: px(211);
+    background-image: url(../images/img_lucky_dip_blue_bg@3x.jpg);
+    text-align: center;
+    position: relative;
+    .draw-an {
+//      @extend .slideOutDown;
+//      @extend .wobble;
+        z-index: 2;
+        width: px(114);
+        height: auto;
+        margin: 0 auto;
+        img:nth-child(1){
+            margin: 0 auto;
+            width: px(6);
+            height: px(80);
+            z-index: 1;
+        }
+        img:nth-child(2){
+            margin: 0 auto;
+            margin-top: -0.05rem;
+            width: px(114);
+        }
+    }
+   
+   img.handom{
+        z-index: 3;
+        width: px(121);
+        position: absolute;
+        left:px(25);
+        top:px(20);
+        opacity: 1;
+        -webkit-opacity: 1;
+        @extend .slideInLeft;
+    }
+    span {
+        position: absolute;
+        bottom: px(15);
+        right: px(15);
+        width: px(120);
+        height: px(32);
+        line-height: px(35);
+        text-align: center;
+        color: #8B49F6;
+        font-size: px(14);
+        display: block;
+        background-color: #fff;
+        border-radius: px(20);
+    }
+}
+.draw-rule {
+    position: fixed;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    z-index: 6;
+    display: none;
+    background: rgba(255,255,255,.95);
+    .main {
+        padding:0 px(15);
+        width: 100%;
+        height: 91%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        h2{
+            font-size: px(24);
+            color: #646464;
+            margin-top: px(30);
+            margin-bottom: px(15);
+        }
+        p {
+           font-size: px(14);
+           color: #313131;
+           line-height: px(28);
+        }
+    }
+    .close {
+        margin: 0 auto;
+        margin-top: px(16);
+        margin-bottom: px(20);
+        width: px(24);
+        height: px(24);
+        background: url(../images/btn_64_x_b_nor@3x.png) no-repeat center;
+        background-size: 100% 100%;
+    }
+}
+#show-box {
+    display: none;
+}
+.box-main {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    .show-box1 {
+        width: px(270);
+        height: px(335);
+        position: relative;
+        top: px(145);
+        left: px(62);
+        z-index: 101;
+        background: #51475a;
+        .btn {
+            position: absolute;
+            bottom: 0px;
+            height: px(48);
+            line-height: px(48);
+            text-align: center;
+            width: 100%;
+            font-size: px(14);
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+    .show-box2 {
+       width: px(270);
+       height: px(306);
+       z-index: 102;
+       position: absolute;
+       top: px(125);
+       left: px(43);
+       background: #fff;
+       padding: px(20);
+       h2 {
+           font-size: px(18);
+           font-weight: bold;
+           color: #8B49F6;
+           text-align: left;
+       }
+       img {
+           margin: px(10) auto;
+           width: px(160);
+           height: px(160);
+           display: block;
+       }
+       p {
+           font-size: px(14);
+           color: #959595;
+       }
+    }
+}

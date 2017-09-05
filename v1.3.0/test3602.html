@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=0.5,maximum-scale=1.0,user-scalable=no, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/orientation.css" />
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<img id="img" src="images/photo.jpg" alt="">
+		</div>
+		<header>
+			<a id="close" class="close"></a>
+			<h2>360&#176全景</h2>
+		</header>
+		<div class="mask"></div>
+		<div class="md-mask landscape">
+			<div id="loading" class="tip">实景加载中...</div>
+			<div id="success" class="tip">左右摆动手机即可查看葡萄乐园360&#176实景</div>
+			<!--<div class="tip">左右滑动屏幕即可查看葡萄乐园360&#176实景</div>-->
+		</div>
+		<div class="md-mask portrait">
+			<div class="tip">请把手机变为横屏</div>
+		</div>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/pt_jssdk.v1.0.3.min.js"></script>
+		<script src="js/view-port.min.js"></script>
+		<script>
+			var winWidth, imgWidth, area, isVertival,beta,flag=0;
+			(function() {
+				document.body.ontouchmove=function(e){
+				    return false;
+				}
+				document.body.ontouchstart=function(e){
+				    return false;
+				}
+				$("#close").on("click", function() {
+					pt_jssdk.openNativeView({
+						type: "closePanorama",
+						title: '',
+						id: ""
+					})
+				})
+				init();
+    				orientationChange();
+    				window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", orientationChange, false);
+			})();
+
+			function verticalHandler(evt) {
+				$('#img').css('transform', 'translate3d(' + deal(evt.gamma) + 'px, 0px, 0px)');
+			}
+
+			function horizontalHandler(evt) {
+				flag++;
+				if(flag == 1){
+					beta = evt.beta;
+				}
+				$('#img').css('transform', 'translate3d(' + deal(evt.beta) + 'px, 0px, 0px)');
+			}
+
+			function init() {
+				winWidth = $(window).width();
+				imgWidth = $('#img').width();
+				area = (imgWidth - winWidth) / 2;
+				$('#img').css('transform', 'translate3d(' + -area + 'px, 0px, 0px)');
+			}
+
+			function deal(gamma) {
+				if(gamma > 60) {
+					return 0;
+				} else if(gamma < -60) {
+					return -2 * area;
+				} else {
+					return(area / 60) * gamma - area;
+				}
+			 }
+			  // 判断横竖屏
+			  function orientationChange() {
+			  	$("#img").hide();
+			  	var orientation = window.orientation;
+			    switch (orientation) {
+			      case -90:
+			      case 90:
+			        // 横屏
+			        $(".portrait").hide();
+			        $("#loading").hide();
+			        $("#success").hide();
+			        var th = setTimeout(function(){
+			        		$("body").width($(window).width());
+						$("body").height($(window).height());
+			        		$(".wrapper").width($(window).width());
+						$(".wrapper").height($(window).height());
+				        $(".mask").show();
+				        $(".landscape").show();
+				        $("#loading").show();
+    			        		var images = new Image();
+    				        images.src = "images/photo.jpg";
+				        images.onload = function(){
+							$("#img").show();
+				         	init();
+				         	$("#loading").hide();
+			        			$("#success").show();
+							var ta = setTimeout(function() {
+								$(".landscape").hide();
+								$(".mask").hide();
+								clearTimeout(ta);
+							}, 2000);
+				          	window.addEventListener('deviceorientation', horizontalHandler, false);
+				        };
+			          	clearTimeout(th);
+			        }, 500);
+			        break;
+			       default:
+			       		// 竖屏
+				        $("body").width($(window).width());
+						$("body").height($(window).height());
+						$(".wrapper").width($(window).width());
+						$(".wrapper").height($(window).height());
+						$(".landscape").hide();
+						$(".portrait").show();
+			    }
+			  }
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<title>分享</title>
+		<style>
+			.sharebtn {
+				position: fixed;
+			    top: .45rem;
+			    right: 0rem;
+			    display: inline-block;
+			    width: .8rem;
+			    height: .8rem;
+			    z-index: 999999;
+			    margin-right: .15rem;
+			    background-repeat: no-repeat;
+			    background-position: center center;
+			    background-image: url(images/btn_24_share_w_nor@2x.png);
+			    background-size: 100% 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="sharebtn" class="sharebtn"></div>
+	</body>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/pt_jssdk.v1.0.3.min.js">	</script>
+	<script src="js/view-port.min.js"></script>
+	<script>
+		$(function(){
+			$("#sharebtn").on("click",function(){
+				pt_jssdk.nativeShare({
+					  title: '标题标题',
+					  pic: 'http://test.fe.ptdev.cn/ptpark/v1.2.0/images/wx.jpg',
+					  desc: "描述描述描述",
+					  url: window.location.href.replace("inapp=1","")+""
+				 })
+			});
+		})
+	</script>
+</html>

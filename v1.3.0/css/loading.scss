@@ -1,0 +1,138 @@
+@function px($size) {
+    @return $size / 320 * 1rem;
+}
+
+.m-load,
+.m-load2 {
+    width: px(36);
+    height: px(36);
+    margin: 0 auto;
+    top: 50%;
+//  margin: 0 auto;
+}
+//.m-load {
+//  background: url('load-v1.gif') #535353 center center no-repeat;
+//}
+
+.m-load2 {
+//  background: #535353;
+//  background: #fff;
+}
+
+
+/** 加载动画的静态样式 **/
+
+.m-load2 {
+    position: relative;
+}
+
+.m-load2 .line div {
+    position: absolute;
+    left: px(16);
+    top: 0;
+    width:px(3);
+    height: px(36);
+}
+
+.m-load2 .line div:before,
+.m-load2 .line div:after {
+    content: '';
+    display: block;
+    height: 50%;
+//  background: #fcfcfc;
+    background: #535353;
+    border-radius: px(5);
+}
+
+.m-load2 .line div:nth-child(2) {
+    -webkit-transform: rotate(30deg);
+}
+
+.m-load2 .line div:nth-child(3) {
+    -webkit-transform: rotate(60deg);
+}
+
+.m-load2 .line div:nth-child(4) {
+    -webkit-transform: rotate(90deg);
+}
+
+.m-load2 .line div:nth-child(5) {
+    -webkit-transform: rotate(120deg);
+}
+
+.m-load2 .line div:nth-child(6) {
+    -webkit-transform: rotate(150deg);
+}
+
+.m-load2 .circlebg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: px(18);
+    height: px(18);
+    margin-top: px(-9);
+    margin-left: px(-9);
+//  background: #535353;
+    background: #fff;
+    border-radius: px(18);
+}
+
+
+/** 加载动画 **/
+
+@-webkit-keyframes load {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.m-load2 .line div:nth-child(1):before {
+    -webkit-animation: load 1.2s linear 0s infinite;
+}
+
+.m-load2 .line div:nth-child(2):before {
+    -webkit-animation: load 1.2s linear 0.1s infinite;
+}
+
+.m-load2 .line div:nth-child(3):before {
+    -webkit-animation: load 1.2s linear 0.2s infinite;
+}
+
+.m-load2 .line div:nth-child(4):before {
+    -webkit-animation: load 1.2s linear 0.3s infinite;
+}
+
+.m-load2 .line div:nth-child(5):before {
+    -webkit-animation: load 1.2s linear 0.4s infinite;
+}
+
+.m-load2 .line div:nth-child(6):before {
+    -webkit-animation: load 1.2s linear 0.5s infinite;
+}
+
+.m-load2 .line div:nth-child(1):after {
+    -webkit-animation: load 1.2s linear 0.6s infinite;
+}
+
+.m-load2 .line div:nth-child(2):after {
+    -webkit-animation: load 1.2s linear 0.7s infinite;
+}
+
+.m-load2 .line div:nth-child(3):after {
+    -webkit-animation: load 1.2s linear 0.8s infinite;
+}
+
+.m-load2 .line div:nth-child(4):after {
+    -webkit-animation: load 1.2s linear 0.9s infinite;
+}
+
+.m-load2 .line div:nth-child(5):after {
+    -webkit-animation: load 1.2s linear 1s infinite;
+}
+
+.m-load2 .line div:nth-child(6):after {
+    -webkit-animation: load 1.2s linear 1.1s infinite;
+}

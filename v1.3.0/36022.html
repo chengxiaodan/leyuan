@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=0.5,maximum-scale=1.0,user-scalable=no, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/panorama_viewer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/panorama.css"/>
+	</head>
+
+	<body>
+		<div class="cxd-contaniner" id='arrow'>
+			<div class="main">
+				<div class="panorama">
+					<img src="images/photo.jpg">
+				</div>
+			</div>
+		</div>
+		<header>
+			<a id="close" class="close"></a>
+			<h2>360全景</h2>
+		</header>
+		<div class="md-mask landscape">
+			<div class="tip">左右摆动手机即可查看葡萄乐园实景</div>
+		</div>
+		<div class="md-mask portrait">
+			<div class="tip">请把手机变为横屏</div>
+		</div>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/pt_jssdk.v1.0.3.min.js"></script>
+		<script src="js/view-port.min.js"></script>
+		<script type="text/javascript" src="js/jquery.panorama_viewer.min.js"></script>
+		<script>
+			(function() {
+				$("#close").on("click",function(){
+					pt_jssdk.openNativeView({
+						  type: "closePanorama",
+						  title: '',
+						  id: ""
+					 })
+				})
+				$(".panorama").panorama_viewer({
+					repeat: true
+				});
+				var init = function() {
+					var updateOrientation = function() {
+						var orientation = window.orientation;
+						switch(orientation) {
+							case 90:
+							case -90:
+							//横屏
+								$("body").width($(window).width());
+								$("body").height($(window).height());
+								$("#arrow").css("visibility","visible");					
+								$(".portrait").hide();
+								$(".landscape").show();
+								window.setTimeout(function() {
+									$(".landscape").hide();
+								}, 2000);
+								break;
+							default:
+								//竖屏
+								$("body").width($(window).width());
+								$("body").height($(window).height());
+								$("#arrow").css("visibility","hidden");
+								$(".landscape").hide();
+								$(".portrait").show();
+								break;
+						}
+					};
+					// 每次旋转，调用这个事件。
+					window.addEventListener('orientationchange', updateOrientation, false);
+					// 事件的初始化
+					updateOrientation();
+				};
+				window.addEventListener('DOMContentLoaded', init, false);
+			})();
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <title></title>
+    <link rel="stylesheet" href="css/reset.css">
+    	<link rel="stylesheet" href="css/integralProDetail.css" />
+</head>
+
+<body>
+    <div class="main">
+	     <div class="con"></div>
+    </div>
+    <script src="js/util.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/view-port.min.js"></script>
+    <script type="text/javascript">
+    	window.onload=function(){
+    		// 根据参数名称获取value    
+		function getUrlParameter(paramKey) {
+			var sURLVariables, i, sParameterName, sPageURL = window.location.search.substring(1);
+			if(sPageURL) {
+				sURLVariables = sPageURL.split("&");
+				for(i = 0; i < sURLVariables.length; i++) {
+					sParameterName = sURLVariables[i].split("=");
+					if(sParameterName[0] === paramKey) return sParameterName[1]
+				}
+			}
+		}
+		var deviceId = getUrlParameter("deviceId");
+		var integralProductId = getUrlParameter("integralProductId");
+        $.ajax({
+            url: parkStatic.url+'v1.3.0/integral/product/detail?device_id='+deviceId+'&integral_product_id='+integralProductId,//线上
+            type: 'get',
+            dataType: "json",
+            cache: false,
+            async: true,
+            success: function(data) {
+                if(data.http_code == 200){
+                		$(".con").html(data.data.content);
+                }else{
+                    console.log(data.msg);
+                }
+            },
+            error: function(data) {
+            	 	console.log(data.msg);
+            }
+        });
+	}
+    </script>
+</body>
+
+</html>

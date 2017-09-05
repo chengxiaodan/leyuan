@@ -1,0 +1,35 @@
+{
+  "status":1,
+  "result":{
+  	"productName":"葡萄手环",
+    "imgurl": "images/421496987782_.pic.jpg",
+    "video_id": "XMTczOTA3MDY2OA==",
+    "title": "搭载儿童自主学习系统",
+    "des": ["专为幼小衔接年龄段儿童打造智能自主学习系统。","利用最新护眼技术。","家长端管控及人工智能小Pai，是孩子有趣博学的成长伙伴。"],
+  	"context":"<img src='images/461496988009_.pic_hd.jpg'>",
+  	"userlist": [{
+  		"id": "1",
+  		"photo": "",
+  		"username": "用户名称",
+  		"time": "2017/12/31 12:34",
+  		"comment": "快递真的超快，包装也很细致！安装非常方便，做工很细致，拖把杆上都有海绵包起来了，手感特别好，用起来效果也不错，吸水性能好，挤水也很干，用了好几次了，我感觉拖头大小还可以吧，大的很多床底角落都拖不到，像这个稍微小一点，有好多窄的地方都能拖到，无死角，清理干净，比在实体店优惠，非常好用，吸水性强，方便轻巧又实惠。",
+  		"pics": ["https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg","https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg"]
+  	},{
+  		"id": "2",
+  		"photo": "",
+  		"username": "用户名称",
+  		"time": "2017/12/31 12:34",
+  		"comment": "快递真的超快，包装也很细致！安装非常方便，做工很细致，拖把杆上都有海绵包起来了，手感特别好，用起来效果也不错，吸水性能好，挤水也很干，用了好几次了，我感觉拖头大小还可以吧，大的很多床底角落都拖不到，像这个稍微小一点，有好多窄的地方都能拖到，无死角，清理干净，比在实体店优惠，非常好用，吸水性强，方便轻巧又实惠。",
+  		"pics": ["https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg","https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg","https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg"]
+  	},{
+  		"id": "3",
+  		"photo": "",
+  		"username": "用户名称",
+  		"time": "2017/12/31 12:34",
+  		"comment": "快递真的超快，包装也很细致！安装非常方便，做工很细致，拖把杆上都有海绵包起来了，手感特别好，用起来效果也不错，吸水性能好，挤水也很干，用了好几次了，我感觉拖头大小还可以吧，大的很多床底角落都拖不到，像这个稍微小一点，有好多窄的地方都能拖到，无死角，清理干净，比在实体店优惠，非常好用，吸水性强，方便轻巧又实惠。",
+  		"pics": ["https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg","https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg","https://img.alicdn.com/bao/uploaded/i1/1714906058358866374/TB2H3iPsB0kpuFjSsppXXcGTXXa_!!0-rate.jpg"]
+  	}],
+  	"price": 1999
+  },
+  "message":""
+}

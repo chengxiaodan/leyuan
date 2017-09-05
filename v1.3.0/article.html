@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/article.css" />
+		<script src="js/autoAdapt.min.js"></script>
+		<script src="js/vue.min.js"></script>
+	</head>
+
+	<body>
+		<section id="app">
+			<img src="images/img_web_jump_tips@3x.png"  class="openBrowser" v-if="isShow"/>
+			<div class="cxd-banner" v-if="inapp!==1 && result.image!==''">
+				<img v-bind:src="result.image"/>
+			</div>
+			<div class="cxd-article" v-bind:class="{mb: inapp!==1}" v-html="result.content"></div>
+			<footer v-if="inapp!==1">
+				<img src="images/img_app_icon_64@3x.png"/>
+				<div class="f-main">
+					<h2>葡萄乐园</h2>
+					<h3>让孩子享受科技的乐趣</h3>
+					<a class="open-app" @click="openApp">立即打开</a>
+				</div>
+			</footer>
+			<div class="loading" v-if="inapp==1 && loading==true"><img src="images/loading.jpg" ></div>
+		</section>
+		<script src="js/util.js"></script>
+		<script src="js/pt_jssdk.v1.0.3.min.js"></script>
+		<script type="text/javascript" src="js/axios.min.js"></script>
+		<script src="js/article.min.js"></script>
+	</body>
+
+</html>

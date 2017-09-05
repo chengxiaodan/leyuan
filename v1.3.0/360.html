@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=0.5,maximum-scale=1.0,user-scalable=no, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/panorama.css" />
+	</head>
+
+	<body>
+		<div id="myPano" class="pano">
+		</div>
+		<header>
+			<a id="close" class="close"></a>
+			<h2>360&#176全景</h2>
+		</header>
+		<div class="mask"></div>
+		<div class="md-mask landscape">
+			<!--<div class="tip">左右摆动手机即可查看葡萄乐园实景</div>-->
+			<div class="tip">左右滑动屏幕即可查看葡萄乐园360&#176实景</div>
+		</div>
+		<div class="md-mask portrait">
+			<div class="tip">请把手机变为横屏</div>
+		</div>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/pt_jssdk.v1.0.3.min.js"></script>
+		<script src="js/view-port.min.js"></script>
+		<script media="all and (orientation:landscape)" type="text/javascript" src="js/jquery.pano.js"></script>
+		<script>
+			(function() {
+				$("#close").on("click", function() {
+					pt_jssdk.openNativeView({
+						type: "closePanorama",
+						title: '',
+						id: ""
+					})
+				})
+				var init = function() {
+					var updateOrientation = function() {
+						var orientation = window.orientation;
+						switch(orientation) {
+							case 90:
+							case -90:
+								//横屏
+								$("body").width($(window).width());
+								$("body").height($(window).height());
+								$(".portrait").hide();
+								setTimeout(function() {
+									$("#myPano").width($(window).width());
+									$("#myPano").height($(window).height());
+									$("#myPano").pano({
+										img: "./images/photo.jpg"
+									});
+									$("#myPano").css({
+										"visibility": "visible",
+										"background-size": "auto 100%"
+									});
+									$(".mask").show();
+									$(".landscape").show();
+									window.setTimeout(function() {
+										$(".landscape").hide();
+										$(".mask").hide();
+									}, 2000);
+								}, 500);
+								break;
+							default:
+								//竖屏
+								$("body").width($(window).width());
+								$("body").height($(window).height());
+								$(".landscape").hide();
+								$(".portrait").show();
+								$("#myPano").css({
+									"visibility": "hidden",
+									"background-size": "auto 100%"
+								});
+								setTimeout(function() {
+									$("#myPano").width($(window).width());
+									$("#myPano").height($(window).height());
+								}, 500);
+								break;
+						}
+					};
+					// 每次旋转，调用这个事件。
+					// window.addEventListener('orientationchange', updateOrientation, false);
+					window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', updateOrientation, false);
+					// 事件的初始化
+					updateOrientation();
+				};
+				window.addEventListener('DOMContentLoaded', init, false);
+			})();
+		</script>
+	</body>
+
+</html>

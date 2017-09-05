@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Swiper demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/loading.css">
+		<style type="text/css">
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			#youkuplayer {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="youkuplayer" style="width:100%;height:200px">
+			<div class="m-load2">
+			     <div class="line">
+			        <div></div>
+			         <div></div>
+			         <div></div>
+			        <div></div>
+			         <div></div>
+			         <div></div>
+			    </div>
+			     <div class="circlebg"></div>
+			</div>
+		</div>
+		 <script src="js/autoAdapt.min.js"></script>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/pt_jssdk.v1.0.3.min.js"></script>
+		<script type="text/javascript" src="//player.youku.com/jsapi"></script>
+		<script type="text/javascript">
+			$(function() {
+				// 根据参数名称获取value    
+				function getUrlParameter(paramKey) {
+					var sURLVariables, i, sParameterName, sPageURL = window.location.search.substring(1);
+					if(sPageURL) {
+						sURLVariables = sPageURL.split("&");
+						for(i = 0; i < sURLVariables.length; i++) {
+							sParameterName = sURLVariables[i].split("=");
+							if(sParameterName[0] === paramKey) return sParameterName[1]
+						}
+					}
+				}
+				var vid = getUrlParameter("vid");
+				var fullscreen = parseInt(getUrlParameter("fullscreen"));
+				var autoplay = (fullscreen == 0 ? false : true);
+				$(window).resize(function(event) {
+					$("#youkuplayer").width($(document).width());
+					$("#youkuplayer").height(9 / 16 * $(document).width());
+					$("#youkuplayer").css("top", ($(document).height() - $("#youkuplayer").height()) / 2 + "px");
+				});
+				$("#youkuplayer").width($(document).width());
+				$("#youkuplayer").height(9 / 16 * $(document).width());
+				$("#youkuplayer").css("top", ($(document).height() - $("#youkuplayer").height()) / 2 + "px");
+				var player = new YKU.Player('youkuplayer', {
+					styleid: '0',
+					autoplay: autoplay,
+					client_id: '5c30db50b42ae8c4',
+					vid: vid,
+					newPlayer: true,
+					events: {
+						onPlayerReady: function(){
+							$(".m-load2").remove();
+						},
+						onPlayStart: function() {
+							pt_jssdk.openNativeView({
+								type: "videoStart",
+								title: '',
+								id: ""
+							})
+						}
+					}
+				});
+				pt_jssdk.on("stopVideo", function(data) {
+					if(data.type == "stopVideo") {
+						player.pauseVideo();
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

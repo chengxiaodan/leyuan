@@ -1,0 +1,37 @@
+body{
+	background-color: #fff;
+	font-family: "微软雅黑";
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.cxd-mark-detail {
+    margin: 0 auto;
+    color: #646464;
+    width:100%;
+    height:auto;
+    text-align: left;
+    .title {
+		font-size: .3rem;
+		font-weight: bold;
+		border-left: .08rem solid #646464;
+		padding:0 .3rem;
+		margin: .2rem 0;
+    }
+    h2 {
+		font-size: .35rem;
+		font-weight: bold;
+		padding: 0 .3rem;
+		margin: .3rem 0;
+    }
+    p {
+    	font-size: .3rem;
+    	padding: 0 .3rem;
+    	margin-bottom: .45rem;
+    	word-break: break-word;
+    	line-height: 160%;
+    	letter-spacing: 0.002rem;
+    	&:last-child {
+    		margin-bottom: .8rem;
+    	}
+    }
+}
